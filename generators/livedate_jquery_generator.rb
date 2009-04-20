@@ -1,4 +1,4 @@
-class LivedatePrototypeGenerator < Rails::Generator::Base
+class LivedateJqueryGenerator < Rails::Generator::Base
   
   def manifest
     record do |m|

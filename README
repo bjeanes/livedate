@@ -11,6 +11,7 @@ provide immediate feedback to the user.
 Include Livedate in your middleware stack. In Rails, this
 is done in environment.rb
 
+  config.gem 'livedate'
   config.middleware.use "Livedate"
 
 This will catch requests to /parsedate. Use GET requests and
@@ -21,38 +22,14 @@ parsed by Chronic and returned formatted as 2009-01-01 or
 
 ## Scripts
 
-A sample Javascript that will enable date parsing on textfields 
-with classes 'live-date' or 'live-datetime'. This particular
-version uses Prototype to hook the events up.
+There are two generators available to get simple javascripts 
+that use livedate. Both will replace the contents on input
+elements with classes .date or .datetime on change with the
+result from the Chronic parse.
 
-  document.observe("dom:loaded", function() {
+  script/generate livedate_jquery
+  script/generate livedate_prototype
   
-    $$("input.live-date").each(function(input) {
-      input.observe('change', function() {
-        new Ajax.Request('/parsedate', {
-          parameters: { date: this.value },
-          method: 'GET',
-          onSuccess: function(response) {
-            input.value = response.responseText;
-          }
-        })
-      });
-    });
-  
-    $$("input.live-datetime").each(function(input) {
-      input.observe('change', function() {
-        new Ajax.Request('/parsedate', {
-          parameters: { datetime: this.value },
-          method: 'GET',
-          onSuccess: function(response) {
-            input.value = response.responseText;
-          }
-        })
-      });
-    });
-  
-  });
-
-(Note: You can run "script/generate livedate_prototype" to get 
-this script in public/javascripts/livedate.js)
-
+Will put the appropriate version of the script in your
+public/javascripts directory. Feel free to change these
+if you need a different behavior.

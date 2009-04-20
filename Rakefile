@@ -1,11 +1,12 @@
 require 'rake/gempackagetask'
+require File.dirname(__FILE__) + '/lib/livedate'
 
 spec = Gem::Specification.new do |s|
   s.name = "livedate"
   s.summary = "A simple Rack-middleware for parsing dates with Chronic"
   s.description= File.read(File.join(File.dirname(__FILE__), 'README'))
   s.requirements = ['chronic']
-  s.version = "0.0.1"
+  s.version = Livedate::VERSION::STRING
   s.author = "Erik Hansson"
   s.email = "erik@bits2life.com"
   s.homepage = "http://www.erikhansson.com"
