@@ -1,0 +1,58 @@
+# Livedate
+
+A simple Rack middleware that parses a dates using Chronic, and 
+returns the result in a standardized manner. The idea is to use 
+this to verify the input in date input fields using AJAX, to 
+provide immediate feedback to the user.
+
+
+## Usage
+
+Include Livedate in your middleware stack. In Rails, this
+is done in environment.rb
+
+  config.middleware.use "Livedate"
+
+This will catch requests to /parsedate. Use GET requests and
+provide a parameter 'date' or 'datetime'. The value will be 
+parsed by Chronic and returned formatted as 2009-01-01 or
+2009-01-01 12:45, depending on the parameter name.
+
+
+## Scripts
+
+A sample Javascript that will enable date parsing on textfields 
+with classes 'live-date' or 'live-datetime'. This particular
+version uses Prototype to hook the events up.
+
+  document.observe("dom:loaded", function() {
+  
+    $$("input.live-date").each(function(input) {
+      input.observe('change', function() {
+        new Ajax.Request('/parsedate', {
+          parameters: { date: this.value },
+          method: 'GET',
+          onSuccess: function(response) {
+            input.value = response.responseText;
+          }
+        })
+      });
+    });
+  
+    $$("input.live-datetime").each(function(input) {
+      input.observe('change', function() {
+        new Ajax.Request('/parsedate', {
+          parameters: { datetime: this.value },
+          method: 'GET',
+          onSuccess: function(response) {
+            input.value = response.responseText;
+          }
+        })
+      });
+    });
+  
+  });
+
+(Note: You can run "script/generate livedate_prototype" to get 
+this script in public/javascripts/livedate.js)
+
