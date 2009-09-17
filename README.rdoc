@@ -1,4 +1,4 @@
-# Livedate
+= Livedate
 
 A simple Rack middleware that parses a dates using Chronic, and 
 returns the result in a standardized manner. The idea is to use 
@@ -6,7 +6,7 @@ this to verify the input in date input fields using AJAX, to
 provide immediate feedback to the user.
 
 
-## Usage
+== Usage
 
 Include Livedate in your middleware stack. In Rails, this
 is done in environment.rb
@@ -20,7 +20,7 @@ parsed by Chronic and returned formatted as 2009-01-01 or
 2009-01-01 12:45, depending on the parameter name.
 
 
-## Scripts
+== Scripts
 
 There are two generators available to get simple javascripts 
 that use livedate. Both will replace the contents on input
