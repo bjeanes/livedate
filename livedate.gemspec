@@ -4,7 +4,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{livedate}
+  s.name = %q{bjeanes-livedate}
   s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -25,6 +25,11 @@ is done in environment.rb
 
   config.gem 'livedate'
   config.middleware.use "Livedate"
+
+Specify the desired date + datetime formats you want too. The 
+defaults are:
+
+  config.middleware.use "Livedate", :date_format => '%Y-%m-%d', :datetime_format => ''%Y-%m-%d %H:%M'
 
 This will catch requests to /parsedate. Use GET requests and
 provide a parameter 'date' or 'datetime'. The value will be 

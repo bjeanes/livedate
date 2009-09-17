@@ -2,8 +2,13 @@ class Livedate
   
   VERSION = File.read(File.dirname(__FILE__) + "/../VERSION").strip
   
-  def initialize(app)
-    @app = app
+  attr_reader :date_format, :datetime_format, :invalid_format
+  
+  def initialize(app, options = {}, &block)
+    @app             = app
+    @date_format     = options[:date_format]     || '%Y-%m-%d'
+    @datetime_format = options[:datetime_format] || '%Y-%m-%d %H:%M'
+    @invalid_format  = options[:invalid_format].to_s
   end
 
   def call(env)
@@ -17,13 +22,13 @@ class Livedate
 
 
   def respond_to_params(params)
-    params['date'] ? parse_date(params['date'], '%Y-%m-%d') : parse_date(params['datetime'], '%Y-%m-%d %H:%M')
+    params['date'] ? parse_date(params['date'], date_format) : parse_date(params['datetime'], datetime_format)
   end
 
   def parse_date(input, format)
     require 'chronic'
     
     t = Chronic.parse(input)
-    (t ? t.strftime(format) : '')
+    (t ? t.strftime(format) : invalid_format)
   end
 end
